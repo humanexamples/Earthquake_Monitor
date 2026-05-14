@@ -1,0 +1,4 @@
+kafka-python==2.0.2
+boto3
+pymongo==4.7.2
+python-dotenv==1.0.0

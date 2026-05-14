@@ -1,0 +1,38 @@
+# Environment files — never commit these
+.env.dev
+.env.staging
+.env.prod
+.env.test
+# **/.env
+
+# Always commit .env.example files
+!**/.env.example
+
+# Python
+__pycache__/
+__pycache__
+*.py[cod]
+*.egg-info/
+.venv/
+dist/
+build/
+
+.vscode
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
+.claude
+
+*.pyc
+*.pyo
+*.pyd
+*.swp
+*.swo
+*.bak
+*.tmp
+*.log

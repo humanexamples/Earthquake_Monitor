@@ -1,0 +1,348 @@
+<mxfile host="65bd71144e">
+    <diagram name="Earthquake Monitor Architecture" id="arch">
+        <mxGraphModel dx="1213" dy="779" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="2339" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="bg_ext" value="External APIs" style="rounded=1;arcSize=4;fillColor=#dbeafe;strokeColor=#2563eb;fontStyle=1;fontSize=12;verticalAlign=top;align=left;spacingLeft=10;spacingTop=6;" parent="1" vertex="1">
+                    <mxGeometry x="20" y="10" width="1190" height="92" as="geometry"/>
+                </mxCell>
+                <mxCell id="bg_bronze" value="🥉  Bronze Layer" style="rounded=1;arcSize=2;fillColor=#fef9c3;strokeColor=#d97706;fontStyle=1;fontSize=13;verticalAlign=top;align=left;spacingLeft=10;spacingTop=6;" parent="1" vertex="1">
+                    <mxGeometry x="20" y="122" width="1190" height="295" as="geometry"/>
+                </mxCell>
+                <mxCell id="bg_emsc_listener" value="1 · EMSC Listener  (emsc_listener.py)" style="rounded=1;arcSize=5;fillColor=#fef08a;strokeColor=#ca8a04;fontStyle=0;fontSize=11;verticalAlign=top;align=left;spacingLeft=8;spacingTop=4;" parent="1" vertex="1">
+                    <mxGeometry x="35" y="158" width="370" height="242" as="geometry"/>
+                </mxCell>
+                <mxCell id="bg_kafka_consumers" value="2 · Kafka Consumers" style="rounded=1;arcSize=5;fillColor=#fef08a;strokeColor=#ca8a04;fontStyle=0;fontSize=11;verticalAlign=top;align=left;spacingLeft=8;spacingTop=4;" parent="1" vertex="1">
+                    <mxGeometry x="425" y="158" width="765" height="242" as="geometry"/>
+                </mxCell>
+                <mxCell id="bg_silver" value="🥈  Silver Layer" style="rounded=1;arcSize=2;fillColor=#f1f5f9;strokeColor=#64748b;fontStyle=1;fontSize=13;verticalAlign=top;align=left;spacingLeft=10;spacingTop=6;" parent="1" vertex="1">
+                    <mxGeometry x="20" y="437" width="1190" height="315" as="geometry"/>
+                </mxCell>
+                <mxCell id="bg_flink" value="3 · Flink Enrichment  (enrichment_job.py)" style="rounded=1;arcSize=5;fillColor=#e2e8f0;strokeColor=#475569;fontStyle=0;fontSize=11;verticalAlign=top;align=left;spacingLeft=8;spacingTop=4;" parent="1" vertex="1">
+                    <mxGeometry x="35" y="472" width="370" height="262" as="geometry"/>
+                </mxCell>
+                <mxCell id="bg_deequ_silver" value="4 · Deequ Silver Check  (deequ_silver_check.py)" style="rounded=1;arcSize=5;fillColor=#e2e8f0;strokeColor=#475569;fontStyle=0;fontSize=11;verticalAlign=top;align=left;spacingLeft=8;spacingTop=4;" parent="1" vertex="1">
+                    <mxGeometry x="425" y="472" width="420" height="262" as="geometry"/>
+                </mxCell>
+                <mxCell id="bg_quality" value="📋  Airflow DAG: data_quality_report · Daily @ midnight" style="rounded=1;arcSize=2;fillColor=#dcfce7;strokeColor=#16a34a;fontStyle=1;fontSize=13;verticalAlign=top;align=left;spacingLeft=10;spacingTop=6;" parent="1" vertex="1">
+                    <mxGeometry x="20" y="772" width="1190" height="155" as="geometry"/>
+                </mxCell>
+                <mxCell id="bg_gold" value="🥇  Gold Layer   (Airflow DAG: gold_aggregation_pipeline · Hourly)" style="rounded=1;arcSize=2;fillColor=#fefce8;strokeColor=#d97706;fontStyle=1;fontSize=13;verticalAlign=top;align=left;spacingLeft=10;spacingTop=6;" parent="1" vertex="1">
+                    <mxGeometry x="20" y="947" width="1190" height="415" as="geometry"/>
+                </mxCell>
+                <mxCell id="bg_impact" value="5 · Impact Scoring  (impact_scoring.py)" style="rounded=1;arcSize=5;fillColor=#fef9c3;strokeColor=#ca8a04;fontStyle=0;fontSize=11;verticalAlign=top;align=left;spacingLeft=8;spacingTop=4;" parent="1" vertex="1">
+                    <mxGeometry x="35" y="982" width="265" height="365" as="geometry"/>
+                </mxCell>
+                <mxCell id="bg_regional" value="6 · Regional Aggregation  (regional_aggregation.py)" style="rounded=1;arcSize=5;fillColor=#fef9c3;strokeColor=#ca8a04;fontStyle=0;fontSize=11;verticalAlign=top;align=left;spacingLeft=8;spacingTop=4;" parent="1" vertex="1">
+                    <mxGeometry x="320" y="982" width="265" height="365" as="geometry"/>
+                </mxCell>
+                <mxCell id="bg_deequ_gold" value="7 · Deequ Gold Check  (deequ_gold_check.py)" style="rounded=1;arcSize=5;fillColor=#fef9c3;strokeColor=#ca8a04;fontStyle=0;fontSize=11;verticalAlign=top;align=left;spacingLeft=8;spacingTop=4;" parent="1" vertex="1">
+                    <mxGeometry x="605" y="982" width="225" height="365" as="geometry"/>
+                </mxCell>
+                <mxCell id="bg_dwh_loader" value="8 · DWH Loader  (load_to_dwh.py)" style="rounded=1;arcSize=5;fillColor=#fef9c3;strokeColor=#ca8a04;fontStyle=0;fontSize=11;verticalAlign=top;align=left;spacingLeft=8;spacingTop=4;" parent="1" vertex="1">
+                    <mxGeometry x="850" y="982" width="340" height="365" as="geometry"/>
+                </mxCell>
+                <mxCell id="bg_streamlit" value="📊  Streamlit Dashboard  (localhost:8501)" style="rounded=1;arcSize=2;fillColor=#eff6ff;strokeColor=#2563eb;fontStyle=1;fontSize=13;verticalAlign=top;align=left;spacingLeft=10;spacingTop=6;" parent="1" vertex="1">
+                    <mxGeometry x="20" y="1382" width="1190" height="185" as="geometry"/>
+                </mxCell>
+                <mxCell id="kafka" value="⚡ Apache Kafka" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=12;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;fontSize=11;" parent="1" vertex="1">
+                    <mxGeometry x="1242" y="228" width="355" height="75" as="geometry"/>
+                </mxCell>
+                <mxCell id="mongo" value="🍃 MongoDB&#xa;raw_events  ·  TTL 30 days" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=12;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=11;" parent="1" vertex="1">
+                    <mxGeometry x="1242" y="545" width="355" height="75" as="geometry"/>
+                </mxCell>
+                <mxCell id="s3" value="🪣 S3 / MinIO Storage" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=12;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;fontSize=11;" parent="1" vertex="1">
+                    <mxGeometry x="1242" y="840" width="355" height="75" as="geometry"/>
+                </mxCell>
+                <mxCell id="dwh" value="🐘 PostgreSQL DWH&#xa;gold.earthquake_events&#xa;gold.regional_stats  ·  gold.daily_summary&#xa;gold.quality_profiles  ·  monitoring.events" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=12;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;fontSize=11;" parent="1" vertex="1">
+                    <mxGeometry x="1242" y="1435" width="355" height="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="emsc_ws" value="🌐 EMSC WebSocket&#xa;(Real-time seismic feed)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bfdbfe;strokeColor=#2563eb;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="30" y="22" width="185" height="58" as="geometry"/>
+                </mxCell>
+                <mxCell id="usgs_api" value="🌐 USGS Earthquake API&#xa;(Historical M4+ / 500 km)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bfdbfe;strokeColor=#2563eb;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="235" y="22" width="185" height="58" as="geometry"/>
+                </mxCell>
+                <mxCell id="worldpop_api" value="🌐 WorldPop API&#xa;(Population density 50 km)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bfdbfe;strokeColor=#2563eb;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="440" y="22" width="185" height="58" as="geometry"/>
+                </mxCell>
+                <mxCell id="overpass_api" value="🌐 Overpass / OSM API&#xa;(Hospitals &amp; airports 150 km)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bfdbfe;strokeColor=#2563eb;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="645" y="22" width="185" height="58" as="geometry"/>
+                </mxCell>
+                <mxCell id="openmeteo_api" value="🌐 Open-Meteo API&#xa;(30-day weather baseline)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bfdbfe;strokeColor=#2563eb;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="850" y="22" width="185" height="58" as="geometry"/>
+                </mxCell>
+                <mxCell id="b1" value="WebSocket Client&#xa;Persistent connection · Auto-reconnect on failure" style="rounded=1;whiteSpace=wrap;html=1;fillColor=white;strokeColor=#ca8a04;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="50" y="193" width="330" height="52" as="geometry"/>
+                </mxCell>
+                <mxCell id="b2" value="Kafka Producer&#xa;Topic: raw-seismic-events" style="rounded=1;whiteSpace=wrap;html=1;fillColor=white;strokeColor=#ca8a04;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="50" y="315" width="330" height="52" as="geometry"/>
+                </mxCell>
+                <mxCell id="bc1" value="S3 Bronze Writer  (s3_bronze_writer.py)&#xa;Immutable JSON  ·  bronze/events/YYYY/MM/DD/{unid}.json" style="rounded=1;whiteSpace=wrap;html=1;fillColor=white;strokeColor=#ca8a04;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="440" y="215" width="335" height="52" as="geometry"/>
+                </mxCell>
+                <mxCell id="bc2" value="MongoDB Writer  (mongodb_writer.py)&#xa;Upsert via $setOnInsert · Sets enrichment flags" style="rounded=1;whiteSpace=wrap;html=1;fillColor=white;strokeColor=#ca8a04;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="810" y="215" width="365" height="52" as="geometry"/>
+                </mxCell>
+                <mxCell id="s1" value="Kafka Consumer&#xa;Group: flink-enrichment" style="rounded=1;whiteSpace=wrap;html=1;fillColor=white;strokeColor=#475569;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="50" y="545" width="330" height="48" as="geometry"/>
+                </mxCell>
+                <mxCell id="s2" value="Validate Event  (validators.py)&#xa;Check required fields, types, coordinates" style="rounded=1;whiteSpace=wrap;html=1;fillColor=white;strokeColor=#475569;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="44" y="611" width="330" height="48" as="geometry"/>
+                </mxCell>
+                <mxCell id="s3_enrich" value="Enrich Event&#xa;Call 4 external APIs · Skip if already fetched (MongoDB flags)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=white;strokeColor=#475569;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="57" y="477" width="330" height="48" as="geometry"/>
+                </mxCell>
+                <mxCell id="s4" value="Write to Silver S3&#xa;silver/events/YYYY/MM/DD/{unid}_enriched.json" style="rounded=1;whiteSpace=wrap;html=1;fillColor=white;strokeColor=#475569;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="50" y="681" width="330" height="48" as="geometry"/>
+                </mxCell>
+                <mxCell id="ds1" value="Read Silver S3" style="rounded=1;whiteSpace=wrap;html=1;fillColor=white;strokeColor=#475569;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="440" y="507" width="390" height="44" as="geometry"/>
+                </mxCell>
+                <mxCell id="ds2" value="Quality Checks:  No null event IDs · Magnitude 0–10&#xa;Depth ≥ 0 · Valid lat/lon · No duplicate IDs · ge_validation_passed = True" style="rounded=1;whiteSpace=wrap;html=1;fillColor=white;strokeColor=#475569;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="440" y="562" width="390" height="58" as="geometry"/>
+                </mxCell>
+                <mxCell id="ds3" value="All checks passed?" style="rhombus;whiteSpace=wrap;html=1;fillColor=white;strokeColor=#475569;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="495" y="640" width="280" height="68" as="geometry"/>
+                </mxCell>
+                <mxCell id="qb" value="Spark: profile_layer.py&#xa;layer = bronze" style="rounded=1;whiteSpace=wrap;html=1;fillColor=white;strokeColor=#16a34a;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="35" y="810" width="265" height="52" as="geometry"/>
+                </mxCell>
+                <mxCell id="qs" value="Spark: profile_layer.py&#xa;layer = silver" style="rounded=1;whiteSpace=wrap;html=1;fillColor=white;strokeColor=#16a34a;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="318" y="810" width="265" height="52" as="geometry"/>
+                </mxCell>
+                <mxCell id="qg" value="Spark: profile_layer.py&#xa;layer = gold" style="rounded=1;whiteSpace=wrap;html=1;fillColor=white;strokeColor=#16a34a;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="601" y="810" width="265" height="52" as="geometry"/>
+                </mxCell>
+                <mxCell id="ql" value="Spark: load_quality_report.py&#xa;→ gold.quality_profiles" style="rounded=1;whiteSpace=wrap;html=1;fillColor=white;strokeColor=#16a34a;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="884" y="810" width="310" height="52" as="geometry"/>
+                </mxCell>
+                <mxCell id="g1" value="Read Silver S3" style="rounded=1;whiteSpace=wrap;html=1;fillColor=white;strokeColor=#ca8a04;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="50" y="1018" width="235" height="44" as="geometry"/>
+                </mxCell>
+                <mxCell id="g2" value="Compute 4 scores (0–10):&#xa;tsunami_risk · building_vulnerability&#xa;population_exposure · infrastructure_risk" style="rounded=1;whiteSpace=wrap;html=1;fillColor=white;strokeColor=#ca8a04;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="50" y="1073" width="235" height="62" as="geometry"/>
+                </mxCell>
+                <mxCell id="g3" value="Composite Score&#xa;tsunami×0.30 + building×0.25&#xa;+ population×0.25 + infra×0.20" style="rounded=1;whiteSpace=wrap;html=1;fillColor=white;strokeColor=#ca8a04;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="50" y="1146" width="235" height="58" as="geometry"/>
+                </mxCell>
+                <mxCell id="g4" value="Write to Gold S3&#xa;gold/impact_scores/YYYY/MM/DD/" style="rounded=1;whiteSpace=wrap;html=1;fillColor=white;strokeColor=#ca8a04;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="50" y="1215" width="235" height="48" as="geometry"/>
+                </mxCell>
+                <mxCell id="r1" value="Read Gold Impact Scores S3" style="rounded=1;whiteSpace=wrap;html=1;fillColor=white;strokeColor=#ca8a04;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="335" y="1018" width="235" height="44" as="geometry"/>
+                </mxCell>
+                <mxCell id="r2" value="Group by region:&#xa;event_count, avg/max magnitude&#xa;avg/max composite_score, tsunami_risk" style="rounded=1;whiteSpace=wrap;html=1;fillColor=white;strokeColor=#ca8a04;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="335" y="1073" width="235" height="62" as="geometry"/>
+                </mxCell>
+                <mxCell id="r3" value="Global daily summary:&#xa;total_events · max_magnitude_global&#xa;max_composite_score · regions_affected" style="rounded=1;whiteSpace=wrap;html=1;fillColor=white;strokeColor=#ca8a04;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="335" y="1146" width="235" height="58" as="geometry"/>
+                </mxCell>
+                <mxCell id="r4" value="Write to Gold S3:&#xa;gold/regional_stats/ · gold/daily_summary/" style="rounded=1;whiteSpace=wrap;html=1;fillColor=white;strokeColor=#ca8a04;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="335" y="1215" width="235" height="48" as="geometry"/>
+                </mxCell>
+                <mxCell id="dg1" value="Read Gold S3" style="rounded=1;whiteSpace=wrap;html=1;fillColor=white;strokeColor=#ca8a04;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="620" y="1018" width="195" height="44" as="geometry"/>
+                </mxCell>
+                <mxCell id="dg2" value="Quality checks on&#xa;scored events" style="rounded=1;whiteSpace=wrap;html=1;fillColor=white;strokeColor=#ca8a04;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="620" y="1073" width="195" height="52" as="geometry"/>
+                </mxCell>
+                <mxCell id="dg3" value="Passed?" style="rhombus;whiteSpace=wrap;html=1;fillColor=white;strokeColor=#ca8a04;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="635" y="1148" width="165" height="62" as="geometry"/>
+                </mxCell>
+                <mxCell id="dl1" value="Read Gold S3:&#xa;impact_scores / regional_stats / daily_summary" style="rounded=1;whiteSpace=wrap;html=1;fillColor=white;strokeColor=#ca8a04;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="865" y="1018" width="310" height="55" as="geometry"/>
+                </mxCell>
+                <mxCell id="dl2" value="Cast types &amp; write via JDBC → PostgreSQL:&#xa;gold.earthquake_events&#xa;gold.regional_stats / gold.daily_summary" style="rounded=1;whiteSpace=wrap;html=1;fillColor=white;strokeColor=#ca8a04;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="865" y="1085" width="310" height="62" as="geometry"/>
+                </mxCell>
+                <mxCell id="v1" value="🗺️ World Map&#xa;gold.earthquake_events" style="rounded=1;whiteSpace=wrap;html=1;fillColor=white;strokeColor=#2563eb;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="35" y="1422" width="210" height="52" as="geometry"/>
+                </mxCell>
+                <mxCell id="v2" value="📋 Event Table&#xa;gold.earthquake_events" style="rounded=1;whiteSpace=wrap;html=1;fillColor=white;strokeColor=#2563eb;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="265" y="1422" width="210" height="52" as="geometry"/>
+                </mxCell>
+                <mxCell id="v3" value="📊 Regional Stats&#xa;gold.regional_stats&#xa;gold.daily_summary" style="rounded=1;whiteSpace=wrap;html=1;fillColor=white;strokeColor=#2563eb;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="495" y="1422" width="210" height="52" as="geometry"/>
+                </mxCell>
+                <mxCell id="v4" value="🔴 Monitoring Window&#xa;gold.earthquake_events&#xa;monitoring.events" style="rounded=1;whiteSpace=wrap;html=1;fillColor=white;strokeColor=#2563eb;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="725" y="1422" width="210" height="52" as="geometry"/>
+                </mxCell>
+                <mxCell id="v5" value="✅ Data Quality&#xa;gold.quality_profiles" style="rounded=1;whiteSpace=wrap;html=1;fillColor=white;strokeColor=#2563eb;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="955" y="1422" width="210" height="52" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_b1_b2" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;" parent="1" source="b1" target="b2" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_s1_s2" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;" parent="1" source="s1" target="s2" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_s2_s3e" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;" parent="1" source="s2" target="s3_enrich" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_s3e_s4" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;" parent="1" source="s3_enrich" target="s4" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_ds1_ds2" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;" parent="1" source="ds1" target="ds2" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_ds2_ds3" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;" parent="1" source="ds2" target="ds3" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_qb_ql" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;" parent="1" source="qb" target="ql" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_qs_ql" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;" parent="1" source="qs" target="ql" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_qg_ql" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;" parent="1" source="qg" target="ql" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_g1_g2" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;" parent="1" source="g1" target="g2" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_g2_g3" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;" parent="1" source="g2" target="g3" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_g3_g4" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;" parent="1" source="g3" target="g4" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_r1_r2" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;" parent="1" source="r1" target="r2" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_r2_r3" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;" parent="1" source="r2" target="r3" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_r3_r4" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;" parent="1" source="r3" target="r4" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_dg1_dg2" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;" parent="1" source="dg1" target="dg2" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_dg2_dg3" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;" parent="1" source="dg2" target="dg3" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_dl1_dl2" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;" parent="1" source="dl1" target="dl2" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_emsc_b1" value="WebSocket stream" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;" parent="1" source="emsc_ws" target="b1" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_b2_kafka" value="raw-seismic-events" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;" parent="1" source="b2" target="kafka" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_kafka_s1" value="consume" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;" parent="1" source="kafka" target="s1" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_kafka_bc1" value="raw-seismic-events" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;" parent="1" source="kafka" target="bc1" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_kafka_bc2" value="raw-seismic-events" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;" parent="1" source="kafka" target="bc2" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_bc1_s3" value="bronze/events/..." style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;" parent="1" source="bc1" target="s3" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_bc2_mongo" value="upsert + flags" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;" parent="1" source="bc2" target="mongo" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_s2_kafka_dlq" value="Validation FAIL (DLQ)" style="edgeStyle=orthogonalEdgeStyle;html=1;dashed=1;strokeColor=#cc0000;fontColor=#cc0000;fontSize=9;" parent="1" source="s2" target="kafka" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_s3e_kafka_dlq" value="Enrichment ERROR (DLQ)" style="edgeStyle=orthogonalEdgeStyle;html=1;dashed=1;strokeColor=#cc0000;fontColor=#cc0000;fontSize=9;" parent="1" source="s3_enrich" target="kafka" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_usgs_s3e" value="seismic context" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;" parent="1" source="usgs_api" target="s3_enrich" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_wp_s3e" value="population density" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;" parent="1" source="worldpop_api" target="s3_enrich" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_op_s3e" value="hospitals / airports" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;" parent="1" source="overpass_api" target="s3_enrich" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_om_s3e" value="weather baseline" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;" parent="1" source="openmeteo_api" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="222" y="472" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="943" y="87"/>
+                            <mxPoint x="415" y="87"/>
+                            <mxPoint x="415" y="449"/>
+                            <mxPoint x="222" y="449"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e_s3e_mongo" value="check &amp; update flags" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;endArrow=block;endFill=1;startArrow=block;startFill=1;" parent="1" source="s3_enrich" target="mongo" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_s4_s3" value="silver/events/..." style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;" parent="1" source="s4" target="s3" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_s3_ds1" value="Read Silver" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;" parent="1" source="s3" target="ds1" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_ds3_fail" value="FAIL → exit(1)" style="edgeStyle=orthogonalEdgeStyle;html=1;dashed=1;strokeColor=#cc0000;fontColor=#cc0000;fontSize=9;" parent="1" source="ds3" target="s3" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_ds3_pass" value="PASS → exit(0)" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#228B22;fontColor=#228B22;strokeWidth=2;fontSize=9;" parent="1" source="ds3" target="g1" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_s3_g1" value="Read Silver" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;" parent="1" source="s3" target="g1" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_s3_qb" value="Read Bronze/Silver/Gold" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#228B22;fontColor=#228B22;strokeWidth=2;fontSize=9;" parent="1" source="s3" target="qb" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_s3_qs" value="Read Bronze/Silver/Gold" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#228B22;fontColor=#228B22;strokeWidth=2;fontSize=9;" parent="1" source="s3" target="qs" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_s3_qg" value="Read Bronze/Silver/Gold" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#228B22;fontColor=#228B22;strokeWidth=2;fontSize=9;" parent="1" source="s3" target="qg" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_ql_dwh" value="JDBC append" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;" parent="1" source="ql" target="dwh" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_g4_s3" value="gold/impact_scores/..." style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;" parent="1" source="g4" target="s3" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_s3_r1" value="Read Gold scores" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;" parent="1" source="s3" target="r1" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_r4_s3" value="gold/regional_stats/..." style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;" parent="1" source="r4" target="s3" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_s3_dg1" value="Read Gold" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;" parent="1" source="s3" target="dg1" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_dg3_fail" value="FAIL → blocks load" style="edgeStyle=orthogonalEdgeStyle;html=1;dashed=1;strokeColor=#cc0000;fontColor=#cc0000;fontSize=9;" parent="1" source="dg3" target="s3" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_dg3_pass" value="PASS" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#228B22;fontColor=#228B22;strokeWidth=2;fontSize=9;" parent="1" source="dg3" target="dl1" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_s3_dl1" value="Read Gold S3" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;" parent="1" source="s3" target="dl1" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_dl2_dwh" value="JDBC append" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;" parent="1" source="dl2" target="dwh" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_dwh_v1" value="SQL" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;" parent="1" source="dwh" target="v1" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_dwh_v2" value="SQL" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;" parent="1" source="dwh" target="v2" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_dwh_v3" value="SQL" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;" parent="1" source="dwh" target="v3" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_dwh_v4" value="SQL" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;" parent="1" source="dwh" target="v4" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_dwh_v5" value="SQL" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;" parent="1" source="dwh" target="v5" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

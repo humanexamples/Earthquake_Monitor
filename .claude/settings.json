@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(jupyter nbconvert *)",
+      "Bash(.venv\\\\Scripts\\\\pip show *)",
+      "Bash(.venv\\\\Scripts\\\\pip install *)",
+      "PowerShell(& \"c:\\\\Temp\\\\NeueFische_Course\\\\_Course\\\\myprojects\\\\Earthquake_Monitor\\\\.venv\\\\Scripts\\\\jupyter-nbconvert.exe\" --to notebook --execute --inplace $nb --ExecutePreprocessor.timeout=120 2>&1)",
+      "PowerShell($nb = \"c:\\\\Temp\\\\NeueFische_Course\\\\_Course\\\\myprojects\\\\Earthquake_Monitor\\\\Test APIs\\\\silver layer\\\\04_Overpass_OSM_API.ipynb\")",
+      "PowerShell(python --version 2>&1)",
+      "PowerShell(Get-ChildItem \"$env:LOCALAPPDATA\\\\Programs\\\\Python\" -ErrorAction SilentlyContinue | Select-Object Name; Get-ChildItem \"C:\\\\Users\\\\human\\\\AppData\\\\Local\\\\Programs\\\\Python\" -ErrorAction SilentlyContinue | Select-Object Name)",
+      "Read(//c/Users/human/AppData/Local/Programs/**)",
+      "PowerShell(& \"c:\\\\Temp\\\\NeueFische_Course\\\\_Course\\\\myprojects\\\\Earthquake_Monitor\\\\.venv\\\\Scripts\\\\python.exe\" -c \"print\\('hello'\\)\" 2>&1)",
+      "PowerShell(& \"c:\\\\Temp\\\\NeueFische_Course\\\\_Course\\\\myprojects\\\\Earthquake_Monitor\\\\.venv\\\\Scripts\\\\python.exe\" -c \"import requests; print\\('requests ok', requests.__version__\\)\" 2>&1)",
+      "Read(//c/Users/human/AppData/Roaming/uv/python/cpython-3.14.4-windows-x86_64-none/**)",
+      "Read(//c/Windows/system32/**)",
+      "PowerShell(curl.exe -v \"https://overpass-api.de/api/interpreter\" 2>&1)",
+      "PowerShell(uv python list 2>&1)",
+      "Bash(python -c \"import json; nb=json.load\\(open\\('c:/Temp/NeueFische_Course/_Course/myprojects/Earthquake_Monitor2/Test APIs/bronze layer/01_EMSC_WebSocket.ipynb'\\)\\); [print\\(f'cell {i}:', ''.join\\(c['source']\\)\\) for i,c in enumerate\\(nb['cells']\\) if c['cell_type']=='code']\")",
+      "Bash(python -c \"import json; nb=json.load\\(open\\('c:/Temp/NeueFische_Course/_Course/myprojects/Earthquake_Monitor2/Test APIs/bronze layer/01_EMSC_WebSocket.ipynb'\\)\\); [print\\(f'id={c[\\\\\"id\\\\\"]}, type={c[\\\\\"cell_type\\\\\"]}, src={repr\\(\\\\\"\\\\\".join\\(c[\\\\\"source\\\\\"]\\)[:60]\\)}'\\) for c in nb['cells']]\")",
+      "Bash(python -c \"import json; nb=json.load\\(open\\('c:/Temp/NeueFische_Course/_Course/myprojects/Earthquake_Monitor2/Test APIs/bronze layer/01_EMSC_WebSocket.ipynb'\\)\\); [print\\(f'id={c[\\\\\"id\\\\\"]}'\\) for c in nb['cells']]\")"
+    ]
+  }
+}
