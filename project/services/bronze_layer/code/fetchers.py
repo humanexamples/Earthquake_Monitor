@@ -43,7 +43,6 @@ def _worldpop_params(lat: float, lon: float, radius_km: float) -> str:
     }
     return f"dataset=wpgppop&year=2020&geojson={json.dumps(geojson)}"
 
-
 def fetch_worldpop(lat: float, lon: float, radius_km: float) -> str | None:
     """WorldPop: population density within radius_km of epicenter (2020)."""
     try:

@@ -17,7 +17,11 @@
       "PowerShell(uv python list 2>&1)",
       "Bash(python -c \"import json; nb=json.load\\(open\\('c:/Temp/NeueFische_Course/_Course/myprojects/Earthquake_Monitor2/Test APIs/bronze layer/01_EMSC_WebSocket.ipynb'\\)\\); [print\\(f'cell {i}:', ''.join\\(c['source']\\)\\) for i,c in enumerate\\(nb['cells']\\) if c['cell_type']=='code']\")",
       "Bash(python -c \"import json; nb=json.load\\(open\\('c:/Temp/NeueFische_Course/_Course/myprojects/Earthquake_Monitor2/Test APIs/bronze layer/01_EMSC_WebSocket.ipynb'\\)\\); [print\\(f'id={c[\\\\\"id\\\\\"]}, type={c[\\\\\"cell_type\\\\\"]}, src={repr\\(\\\\\"\\\\\".join\\(c[\\\\\"source\\\\\"]\\)[:60]\\)}'\\) for c in nb['cells']]\")",
-      "Bash(python -c \"import json; nb=json.load\\(open\\('c:/Temp/NeueFische_Course/_Course/myprojects/Earthquake_Monitor2/Test APIs/bronze layer/01_EMSC_WebSocket.ipynb'\\)\\); [print\\(f'id={c[\\\\\"id\\\\\"]}'\\) for c in nb['cells']]\")"
+      "Bash(python -c \"import json; nb=json.load\\(open\\('c:/Temp/NeueFische_Course/_Course/myprojects/Earthquake_Monitor2/Test APIs/bronze layer/01_EMSC_WebSocket.ipynb'\\)\\); [print\\(f'id={c[\\\\\"id\\\\\"]}'\\) for c in nb['cells']]\")",
+      "Bash(python migrate_infrastructure_ids.py)",
+      "Bash(pip install *)",
+      "Bash(set MONGODB_URI=mongodb://localhost:27017)",
+      "Bash(python -m pip install pymongo python-dotenv)"
     ]
   }
 }

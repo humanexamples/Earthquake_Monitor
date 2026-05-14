@@ -1,6 +1,6 @@
 """
 transformer.py
-Cleans and normalises raw bronze data into a silver-layer document.
+Cleans and normalises raw bronze data into silver-layer documents.
 """
 
 
@@ -11,27 +11,12 @@ def _to_float(value) -> float | None:
         return None
 
 
-def _split_infrastructure(elements: list) -> dict:
-    hospitals, airports, police_stations = [], [], []
-    for el in elements:
-        tags    = el.get("tags", {})
-        entry   = {"id": el.get("id"), "name": tags.get("name", "unknown"), "type": el.get("type")}
-        amenity = tags.get("amenity", "")
-        aeroway = tags.get("aeroway", "")
-        if amenity == "hospital":
-            hospitals.append(entry)
-        elif aeroway == "aerodrome":
-            airports.append(entry)
-        elif amenity == "police":
-            police_stations.append(entry)
-    return {"hospitals": hospitals, "airports": airports, "police_stations": police_stations}
-
-
-def transform(unid: str, received_at: str, bronze: dict) -> dict:
+def transform_event(unid: str, received_at: str, bronze: dict,
+                    hist_eq_ids: list, infra_ids: list) -> dict:
     raw      = bronze["earthquake_event"]
     props    = raw.get("data", {}).get("properties", {})
     coords   = raw.get("data", {}).get("geometry", {}).get("coordinates", [])
-    location = bronze["location"]
+    location = raw.get("location", {})
 
     depth_km = _to_float(props.get("depth")) or (
         _to_float(coords[2]) if len(coords) > 2 else None
@@ -59,8 +44,7 @@ def transform(unid: str, received_at: str, bronze: dict) -> dict:
             "state":   location.get("bundesland"),
             "city":    location.get("ort"),
         },
-        "population_100km":              raw.get("population"),
-        "historical_earthquake_count":   len(bronze["historical_earthquakes"]),
-        "historical_earthquakes":        bronze["historical_earthquakes"],
-        "infrastructure":                _split_infrastructure(bronze["infrastructure"]),
+        "population":            _to_float(raw.get("population")),
+        "historical_earthquake_ids":   hist_eq_ids,
+        "infrastructure_ids":          infra_ids,
     }

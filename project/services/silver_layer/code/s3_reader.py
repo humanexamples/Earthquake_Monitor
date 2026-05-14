@@ -40,5 +40,4 @@ def read_bronze_files(s3, unid: str, received_at: str) -> dict | None:
         "earthquake_event":       earthquake_event,
         "historical_earthquakes": _read_json(s3, f"{prefix}/historical_earthquakes.json") or [],
         "infrastructure":         _read_json(s3, f"{prefix}/infrastructure.json") or [],
-        "location":               _read_json(s3, f"{prefix}/location.json") or {},
     }

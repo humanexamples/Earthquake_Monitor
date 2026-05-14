@@ -18,7 +18,7 @@ def make_client():
     )
 
 
-def upload_to_s3(s3, unid: str, earthquake_event, historical_earthquakes, infrastructure, location) -> None:
+def upload_to_s3(s3, unid: str, earthquake_event, historical_earthquakes, infrastructure) -> None:
     date_path = datetime.datetime.now(datetime.timezone.utc).strftime("%Y/%m/%d")
     s3.put_object(
         Bucket=S3_BUCKET,
@@ -36,12 +36,6 @@ def upload_to_s3(s3, unid: str, earthquake_event, historical_earthquakes, infras
         Bucket=S3_BUCKET,
         Key=f"bronze/events/{date_path}/{unid}/infrastructure.json",
         Body=json.dumps(infrastructure),
-        ContentType="application/json",
-    )
-    s3.put_object(
-        Bucket=S3_BUCKET,
-        Key=f"bronze/events/{date_path}/{unid}/location.json",
-        Body=json.dumps(location),
         ContentType="application/json",
     )
 

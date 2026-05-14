@@ -49,8 +49,9 @@ async def listen():
                     earthquake_event["historical_earthquake_ids"] = [eq["id"] for eq in historical_earthquakes]
                     earthquake_event["population"] = population
                     earthquake_event["infrastructure_ids"] = [eq["id"] for eq in infrastructure]
-
-                    upload_to_s3(s3, unid, earthquake_event, historical_earthquakes, infrastructure, location)
+                    earthquake_event["location"] = location
+                    
+                    upload_to_s3(s3, unid, earthquake_event, historical_earthquakes, infrastructure)
 
 
                     send_event(producer, unid)
