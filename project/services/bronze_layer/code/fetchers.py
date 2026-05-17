@@ -143,10 +143,10 @@ def fetch_location(lat: float, lon: float):
         data = response.json()
         adresse = data.get("address", {})
         return {
-            "land": adresse.get("country"),
-            "bundesland": adresse.get("state"),
-            "ort": adresse.get("city") or adresse.get("town") or adresse.get("village"),
+            "country":    adresse.get("country"),
+            "state":      adresse.get("state"),
+            "settlement": adresse.get("city") or adresse.get("town") or adresse.get("village"),
         }
     except Exception as e:
         print(f"Nominatim fetch failed: {e}", flush=True)
-        return {'land': None, 'bundesland': None, 'ort': None}
+        return {"country": None, "state": None, "settlement": None}

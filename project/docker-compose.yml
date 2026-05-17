@@ -88,24 +88,6 @@ services:
     networks:
       - kafka-network
 
-  # ── Infrastructure: MongoDB ───────────────────────────────────────────────────
-  mongodb:
-    image: mongo:7.0
-    container_name: mongodb
-    ports:
-      - "27017:27017"
-    volumes:
-      - ./data/mongo-data:/data/db
-    healthcheck:
-      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-      start_period: 30s
-    networks:
-      - kafka-network
-    restart: unless-stopped
-
   # ── BRONZE layer ─────────────────────────────────────────────────────────────
 
   bronze_layer:
@@ -132,8 +114,61 @@ services:
         condition: service_healthy
       minio:
         condition: service_healthy
-      mongodb:
+    networks:
+      - kafka-network
+    env_file: .env
+
+  # ── Infrastructure: PostgreSQL (Gold DWH) ────────────────────────────────────
+
+  postgres_gold:
+    image: postgres:16
+    container_name: postgres_gold
+    environment:
+      POSTGRES_DB:       ${POSTGRES_GOLD_DB}
+      POSTGRES_USER:     ${POSTGRES_GOLD_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_GOLD_PASSWORD}
+    ports:
+      - "5433:5432"
+    volumes:
+      - ./data/postgres-gold-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_GOLD_USER} -d ${POSTGRES_GOLD_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+    networks:
+      - kafka-network
+    restart: unless-stopped
+
+  # ── GOLD layer ────────────────────────────────────────────────────────────────
+
+  gold_layer:
+    build: ./services/gold_layer
+    container_name: gold_layer
+    depends_on:
+      kafka:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+      postgres_gold:
         condition: service_healthy
     networks:
       - kafka-network
     env_file: .env
+    restart: unless-stopped
+
+  # ── Streamlit Dashboard ───────────────────────────────────────────────────────
+
+  streamlit:
+    build: ./services/streamlit
+    container_name: streamlit
+    depends_on:
+      postgres_gold:
+        condition: service_healthy
+    ports:
+      - "8501:8501"
+    networks:
+      - kafka-network
+    env_file: .env
+    restart: unless-stopped
