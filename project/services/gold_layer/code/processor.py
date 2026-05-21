@@ -1,14 +1,3 @@
-"""
-processor.py
-Transforms a raw silver-layer event row into the gold-layer record.
-
-Derived columns:
-  historical_earthquake_magnitudes_over4_median  — median of magnitudes > 4
-  historical_earthquake_magnitudes_over4_count   — count of magnitudes > 4
-  infrastructure_hospitals_count                 — number of hospitals
-  infrastructure_police_count                    — number of police stations
-  infrastructure_aerodrome_count                 — number of aerodromes
-"""
 import statistics
 from datetime import date as date_type
 
@@ -56,7 +45,15 @@ def process_country(row: dict) -> dict:
 
 def process_event(row: dict) -> dict:
     mags      = _to_list(row.get("historical_earthquake_magnitudes"))
-    mags_over4 = [float(m) for m in mags if m is not None and float(m) > 4]
+    datetimes = _to_list(row.get("historical_earthquake_datetimes"))
+
+    over4_pairs = [
+        (float(m), dt)
+        for m, dt in zip(mags, datetimes)
+        if m is not None and float(m) > 4
+    ]
+    mags_over4      = [m  for m, _  in over4_pairs]
+    datetimes_over4 = [dt for _,  dt in over4_pairs if dt is not None]
 
     hospitals  = _to_list(row.get("infrastructure_hospital_places"))
     police     = _to_list(row.get("infrastructure_police_places"))
@@ -80,6 +77,12 @@ def process_event(row: dict) -> dict:
         "historical_earthquake_magnitudes_over4_count": len(mags_over4),
         "historical_earthquake_magnitudes_over4_max": (
             round(max(mags_over4), 4) if mags_over4 else None
+        ),
+        "historical_earthquake_datetimes_over4_min": (
+            min(datetimes_over4) if datetimes_over4 else None
+        ),
+        "historical_earthquake_datetimes_over4_max": (
+            max(datetimes_over4) if datetimes_over4 else None
         ),
         "infrastructure_hospitals_count":  len(hospitals),
         "infrastructure_police_count":     len(police),

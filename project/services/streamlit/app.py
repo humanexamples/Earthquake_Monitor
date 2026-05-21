@@ -1,8 +1,11 @@
 import os
 
+import matplotlib
+import matplotlib.colors as mcolors
 import pandas as pd
 import plotly.express as px
 import psycopg2
+import pydeck as pdk
 import streamlit as st
 from dotenv import load_dotenv
 
@@ -40,42 +43,111 @@ PLOT_LAYOUT = dict(
     height=480,
 )
 
-GEO_LAYOUT = dict(
-    showframe=False,
-    showcoastlines=True,
-    coastlinecolor="#444",
-    showland=True,
-    landcolor="#1a1a2e",
-    showocean=True,
-    oceancolor="#0d1b2a",
-    showcountries=True,
-    countrycolor="#333",
-    bgcolor="#0e1117",
-    projection_type="natural earth",
-)
 
+_CMAP_MAP = {"Reds": "Reds", "YlOrRd": "YlOrRd", "Plasma": "plasma"}
 
-def make_globe(df: pd.DataFrame, size_col: str, color_col: str,
-               title: str, scale: str, hover: dict) -> px.scatter_geo:
-    """Build a full-earth scatter_geo that handles NaN sizes gracefully."""
+_COL_RENAME = {
+    "location_country":                              "Country",
+    "location_state":                                "State",
+    "location_settlement":                           "Settlement",
+    "coordinate_depth":                              "depth (km)",
+    "historical_earthquake_magnitudes_over4_median": "hist. earthquake (> 4.0 M) - median",
+    "historical_earthquake_magnitudes_over4_count":  "hist. earthquake (> 4.0 M) - count",
+    "historical_earthquake_magnitudes_over4_max":    "hist. earthquake (> 4.0 M) - max magnitude",
+    "historical_earthquake_datetimes_over4_min":     "hist. earthquake (> 4.0 M) - earliest date",
+    "historical_earthquake_datetimes_over4_max":     "hist. earthquake (> 4.0 M) - latest date",
+    "infrastructure_hospitals_count":                "hospitals count (within 100 km)",
+    "infrastructure_police_count":                   "police stations count (within 100 km)",
+    "infrastructure_aerodrome_count":                "aerodromes count (within 100 km)",
+    "population":                                    "population (within 100 km)",
+}
+
+def make_pydeck_map(
+    df: pd.DataFrame,
+    size_col: str,
+    color_col: str,
+    scale: str = "YlOrRd",
+    extra_hover: list | None = None,
+    tooltip_html: str | None = None,
+) -> None:
     plot_df = df.dropna(subset=["coordinate_lat", "coordinate_lon"]).copy()
+
+    for col in ("location_country", "location_state", "location_settlement"):
+        if col in plot_df.columns:
+            plot_df[col] = plot_df[col].fillna("")
+    if "time" in plot_df.columns:
+        plot_df["time"] = plot_df["time"].apply(fmt_time)
+    if "date" in plot_df.columns:
+        plot_df["date"] = plot_df["date"].apply(
+            lambda v: str(v)[:10] if pd.notna(v) else ""
+        )
+
+    # quadratic radius in metres — stronger quakes are clearly larger;
+    # pydeck uses real-world metres so circles shrink naturally when zooming out
     median_val = plot_df[size_col].median()
     fill_val = median_val if pd.notna(median_val) else 3.0
-    plot_df["_size"] = plot_df[size_col].fillna(fill_val).clip(lower=0.5)
+    plot_df["_radius"] = plot_df[size_col].fillna(fill_val).clip(lower=0.5) ** 2 * 5_000
 
-    fig = px.scatter_geo(
-        plot_df,
-        lat="coordinate_lat", lon="coordinate_lon",
-        size="_size", color=color_col,
-        hover_name="location_country",
-        hover_data={**hover, "_size": False, "coordinate_lat": False, "coordinate_lon": False},
-        color_continuous_scale=scale,
-        size_max=28,
-        title=title,
+    cmap_fn = matplotlib.colormaps[_CMAP_MAP.get(scale, "YlOrRd")]
+    vmin = float(plot_df[color_col].min(skipna=True) or 0)
+    vmax = float(plot_df[color_col].max(skipna=True) or 9)
+    if vmin == vmax:
+        vmax = vmin + 1
+    norm = mcolors.Normalize(vmin=vmin, vmax=vmax)
+
+    def _color(v):
+        if pd.isna(v):
+            return [100, 100, 100, 160]
+        r, g, b, _ = cmap_fn(norm(float(v)))
+        return [int(r * 255), int(g * 255), int(b * 255), 200]
+
+    plot_df["_color"] = plot_df[color_col].apply(_color)
+
+    if tooltip_html is None:
+        tooltip_html = (
+            "<b>{location_country}</b><br/>"
+            "State: {location_state}<br/>"
+            "Settlement: {location_settlement}<br/>"
+            "Magnitude: {magnitude}<br/>"
+            "Date: {date}<br/>"
+            "Time: {time}"
+        )
+        if extra_hover:
+            for label, col in extra_hover:
+                if col in plot_df.columns:
+                    tooltip_html += f"<br/>{label}: {{{col}}}"
+
+    st.pydeck_chart(
+        pdk.Deck(
+            layers=[
+                pdk.Layer(
+                    "ScatterplotLayer",
+                    data=plot_df,
+                    get_position=["coordinate_lon", "coordinate_lat"],
+                    get_radius="_radius",
+                    get_fill_color="_color",
+                    pickable=True,
+                    opacity=0.8,
+                    radius_min_pixels=4,
+                    radius_max_pixels=40,
+                )
+            ],
+            initial_view_state=pdk.ViewState(
+                latitude=20, longitude=10, zoom=1, pitch=0
+            ),
+            map_style="https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json",
+            tooltip={
+                "html": tooltip_html,
+                "style": {
+                    "backgroundColor": "#1a1a2e",
+                    "color": "white",
+                    "padding": "8px",
+                    "borderRadius": "4px",
+                },
+            },
+        ),
+        use_container_width=True,
     )
-    fig.update_geos(**GEO_LAYOUT)
-    fig.update_layout(**PLOT_LAYOUT)
-    return fig
 
 
 def style_table(df: pd.DataFrame, mag_col: str = "magnitude"):
@@ -86,21 +158,54 @@ def style_table(df: pd.DataFrame, mag_col: str = "magnitude"):
             subset=[mag_col],
             vmin=0, vmax=10,
         )
-    for col in ("infrastructure_hospitals_count", "infrastructure_police_count",
-                "infrastructure_aerodrome_count"):
+    for col in ("hospitals count (within 100 km)", "police stations count (within 100 km)",
+                "aerodromes count (within 100 km)"):
         if col in df.columns:
             styler = styler.background_gradient(cmap="Blues", subset=[col], vmin=0)
-    for col in ("historical_earthquake_magnitudes_over4_median",
-                "historical_earthquake_magnitudes_over4_count",
-                "historical_earthquake_magnitudes_over4_max"):
+    for col in ("hist. earthquake (> 4.0 M) - median", "hist. earthquake (> 4.0 M) - count",
+                "hist. earthquake (> 4.0 M) - max"):
         if col in df.columns:
             styler = styler.background_gradient(cmap="Oranges", subset=[col], vmin=0)
+
+    fmt = {}
+    mag_display_cols = {
+        "magnitude", "mag_median", "mag_max",
+        "hist. earthquake (> 4.0 M) - median",
+        "hist. earthquake (> 4.0 M) - max",
+        "depth (km)",
+    }
+    for col in df.columns:
+        if col in mag_display_cols:
+            fmt[col] = "{:.1f}"
+        elif col in ("population", "population (within 100 km)"):
+            fmt[col] = lambda v: str(int(v)) if pd.notna(v) else ""
+        elif col == "datetime":
+            fmt[col] = lambda v: str(v) if pd.notna(v) else ""
+    if fmt:
+        styler = styler.format(fmt, na_rep="")
+
     return styler
 
 
 def fmt_mag(series: pd.Series) -> str:
     v = series.dropna()
     return f"{v.max():.1f} M" if not v.empty else "—"
+
+
+def fmt_time(t) -> str:
+    if t is None:
+        return ""
+    try:
+        return str(t)[:8]
+    except Exception:
+        return ""
+
+
+def add_datetime_col(tbl: pd.DataFrame) -> pd.DataFrame:
+    date_str = tbl["date"].apply(lambda v: str(v)[:10] if pd.notna(v) else "")
+    time_str = tbl["time"].apply(fmt_time)
+    tbl["datetime"] = (date_str + " " + time_str).str.strip()
+    return tbl.drop(columns=["date", "time"])
 
 
 # ── Layout ────────────────────────────────────────────────────────────────────
@@ -136,20 +241,25 @@ with tab1:
         avg = df["magnitude"].mean()
         c3.metric("Avg Magnitude", f"{avg:.1f} M" if pd.notna(avg) else "—")
 
-        fig = make_globe(
-            df, size_col="magnitude", color_col="magnitude",
-            title="Earthquake Map (last 24 h)", scale="Reds",
-            hover={"magnitude": True, "location_state": True,
-                   "location_settlement": True, "date": True, "time": True},
+        make_pydeck_map(
+            df, size_col="magnitude", color_col="magnitude", scale="Reds",
+            tooltip_html=(
+                "<b>{location_country}</b><br/>"
+                "UNID: {unid}<br/>"
+                "State: {location_state}<br/>"
+                "Settlement: {location_settlement}<br/>"
+                "Magnitude: {magnitude}<br/>"
+                "Depth (km): {coordinate_depth}<br/>"
+                "Date & Time: {date} {time}"
+            ),
         )
-        st.plotly_chart(fig, use_container_width=True)
 
         display_cols = ["unid", "magnitude", "location_country", "location_state",
                         "location_settlement", "date", "time", "coordinate_depth", "population"]
-        st.dataframe(
-            style_table(df[display_cols].reset_index(drop=True)),
-            use_container_width=True,
-        )
+        tbl = df[display_cols].copy().reset_index(drop=True)
+        tbl = add_datetime_col(tbl)
+        tbl = tbl.rename(columns=_COL_RENAME)
+        st.dataframe(style_table(tbl), use_container_width=True)
 
 # ── Tab 2: All earthquakes ────────────────────────────────────────────────────
 
@@ -185,12 +295,24 @@ with tab2:
             else:
                 date_range = ()
 
+        f4, _ = st.columns([2, 5])
+        with f4:
+            depth_lo = float(df_all["coordinate_depth"].min(skipna=True) or 0)
+            depth_hi = float(df_all["coordinate_depth"].max(skipna=True) or 700)
+            if depth_lo == depth_hi:
+                depth_hi = depth_lo + 1
+            depth_range = st.slider("Depth (km)", depth_lo, depth_hi, (depth_lo, depth_hi), 1.0)
+
         filtered = df_all.copy()
         if country_sel != "All":
             filtered = filtered[filtered["location_country"] == country_sel]
         filtered = filtered[
             filtered["magnitude"].between(mag_range[0], mag_range[1], inclusive="both") |
             filtered["magnitude"].isna()
+        ]
+        filtered = filtered[
+            filtered["coordinate_depth"].between(depth_range[0], depth_range[1], inclusive="both") |
+            filtered["coordinate_depth"].isna()
         ]
         if len(date_range) == 2:
             filtered["date"] = pd.to_datetime(filtered["date"])
@@ -206,12 +328,18 @@ with tab2:
         c3.metric("Avg Magnitude", f"{avg_f:.1f} M" if pd.notna(avg_f) else "—")
 
         if not filtered.empty:
-            fig = make_globe(
-                filtered, size_col="magnitude", color_col="magnitude",
-                title="Earthquake Map", scale="YlOrRd",
-                hover={"magnitude": True, "date": True},
+            make_pydeck_map(
+                filtered, size_col="magnitude", color_col="magnitude", scale="YlOrRd",
+                tooltip_html=(
+                    "<b>{location_country}</b><br/>"
+                    "UNID: {unid}<br/>"
+                    "State: {location_state}<br/>"
+                    "Settlement: {location_settlement}<br/>"
+                    "Magnitude: {magnitude}<br/>"
+                    "Depth (km): {coordinate_depth}<br/>"
+                    "Date & Time: {date} {time}"
+                ),
             )
-            st.plotly_chart(fig, use_container_width=True)
 
             display_cols = [
                 "unid", "magnitude", "location_country", "location_state",
@@ -219,14 +347,16 @@ with tab2:
                 "historical_earthquake_magnitudes_over4_median",
                 "historical_earthquake_magnitudes_over4_count",
                 "historical_earthquake_magnitudes_over4_max",
+                "historical_earthquake_datetimes_over4_min",
+                "historical_earthquake_datetimes_over4_max",
                 "infrastructure_hospitals_count",
                 "infrastructure_police_count",
                 "infrastructure_aerodrome_count",
             ]
-            st.dataframe(
-                style_table(filtered[display_cols].reset_index(drop=True)),
-                use_container_width=True,
-            )
+            tbl2 = filtered[display_cols].copy().reset_index(drop=True)
+            tbl2 = add_datetime_col(tbl2)
+            tbl2 = tbl2.rename(columns=_COL_RENAME)
+            st.dataframe(style_table(tbl2), use_container_width=True)
 
 # ── Tab 3: Country summary ────────────────────────────────────────────────────
 
@@ -306,16 +436,24 @@ with tab4:
         avg_h = df_h[hist_col].mean()
         c3.metric("Avg Historical Magnitude", f"{avg_h:.1f} M" if pd.notna(avg_h) else "—")
 
-        fig = make_globe(
-            df_h, size_col=hist_col, color_col=hist_col,
-            title="Map: Historically Strongest Earthquakes", scale="Plasma",
-            hover={"magnitude": True, hist_col: True, "location_state": True, "date": True},
+        make_pydeck_map(
+            df_h, size_col=hist_col, color_col=hist_col, scale="Plasma",
+            tooltip_html=(
+                "<b>{location_country}</b><br/>"
+                "UNID: {unid}<br/>"
+                "State: {location_state}<br/>"
+                "Settlement: {location_settlement}<br/>"
+                "Magnitude: {magnitude}<br/>"
+                "Depth (km): {coordinate_depth}<br/>"
+                "hist. max magnitude (> 4.0 M): {historical_earthquake_magnitudes_over4_max}<br/>"
+                "Latest hist. earthquake (> 4.0 M): {date} {time}"
+            ),
         )
-        st.plotly_chart(fig, use_container_width=True)
 
         display_cols = ["unid", hist_col, "magnitude", "location_country",
                         "location_state", "location_settlement", "date", "time"]
-        st.dataframe(
-            style_table(df_h[display_cols].reset_index(drop=True), mag_col=hist_col),
-            use_container_width=True,
-        )
+        tbl4 = df_h[display_cols].copy().reset_index(drop=True)
+        tbl4 = add_datetime_col(tbl4)
+        tbl4 = tbl4.rename(columns={"datetime": "latest hist. earthquake (> 4.0 M)"})
+        tbl4 = tbl4.rename(columns=_COL_RENAME)
+        st.dataframe(style_table(tbl4, mag_col=hist_col), use_container_width=True)

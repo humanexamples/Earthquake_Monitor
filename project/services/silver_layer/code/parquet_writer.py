@@ -1,18 +1,3 @@
-"""
-parquet_writer.py
-Writes silver-layer data to MinIO as Parquet files.
-
-Path structure:
-  silver/earthquake_events/earthquake_events.parquet  ← single file, all events
-  silver/countries/{country}.parquet
-
-earthquake_events columns:
-  unid, coordinate_lat, coordinate_lon, coordinate_depth, magnitude,
-  date, time, population, location_country, location_state,
-  location_settlement, historical_earthquake_magnitudes,
-  infrastructure_hospital_places, infrastructure_police_places,
-  infrastructure_aerodrome_places
-"""
 import json
 import os
 from io import BytesIO
@@ -99,8 +84,13 @@ def write_earthquake_event(s3, unid: str, bronze: dict) -> None:
     depth               = props.get("depth") or (coords[2] if len(coords) > 2 else None)
     date_val, time_val  = _split_time(props.get("time"))
 
-    unique_eqs = {eq["id"]: eq for eq in bronze["historical_earthquakes"] if eq.get("id")}
-    magnitudes = [eq.get("mag") for eq in unique_eqs.values()]
+    unique_eqs = {eq["_id"]: eq for eq in bronze["historical_earthquakes"] if eq.get("_id") is not None}
+    historical_earthquake_magnitudes = [eq.get("mag") for eq in unique_eqs.values()]
+    historical_earthquake_datetimes  = [
+        pd.Timestamp(eq["time"], unit="ms").isoformat()
+        if eq.get("time") is not None else None
+        for eq in unique_eqs.values()
+    ]
 
     infra = bronze.get("infrastructure", [])
     hospital_places  = [el.get("tags", {}).get("name", "unknown")
@@ -122,7 +112,8 @@ def write_earthquake_event(s3, unid: str, bronze: dict) -> None:
         "location_country":                 location.get("country"),
         "location_state":                   location.get("state"),
         "location_settlement":              location.get("settlement"),
-        "historical_earthquake_magnitudes": magnitudes,
+        "historical_earthquake_magnitudes": historical_earthquake_magnitudes,
+        "historical_earthquake_datetimes":  historical_earthquake_datetimes,
         "infrastructure_hospital_places":   hospital_places,
         "infrastructure_police_places":     police_places,
         "infrastructure_aerodrome_places":  aerodrome_places,

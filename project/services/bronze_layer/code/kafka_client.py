@@ -26,3 +26,4 @@ def send_event(producer: KafkaProducer, unid: str) -> None:
         },
     }
     producer.send(KAFKA_TOPIC, kafka_msg)
+    producer.flush()

@@ -27,6 +27,8 @@ CREATE TABLE IF NOT EXISTS {TABLE} (
     historical_earthquake_magnitudes_over4_median   FLOAT,
     historical_earthquake_magnitudes_over4_count    INTEGER,
     historical_earthquake_magnitudes_over4_max      FLOAT,
+    historical_earthquake_datetimes_over4_min       TIMESTAMP,
+    historical_earthquake_datetimes_over4_max       TIMESTAMP,
     infrastructure_hospitals_count                  INTEGER,
     infrastructure_police_count                     INTEGER,
     infrastructure_aerodrome_count                  INTEGER
@@ -66,6 +68,12 @@ CREATE TABLE IF NOT EXISTS {TABLE_TOP_HISTORICAL} (
 );
 """
 
+# The conflict handler "ON CONFLICT (unid)": unid is the primary key. 
+# If a row with that unid already exists, instead of failing with a 
+# duplicate-key error, overwrite its columns with the new values.
+# EXCLUDED is a special PostgreSQL keyword that refers to the row that 
+# was just rejected (i.e., the new incoming data). So "EXCLUDED.magnitude"
+# means "the magnitude value we just tried to insert."
 UPSERT_SQL = f"""
 INSERT INTO {TABLE} (
     unid, magnitude, coordinate_lat, coordinate_lon, coordinate_depth,
@@ -73,6 +81,8 @@ INSERT INTO {TABLE} (
     historical_earthquake_magnitudes_over4_median,
     historical_earthquake_magnitudes_over4_count,
     historical_earthquake_magnitudes_over4_max,
+    historical_earthquake_datetimes_over4_min,
+    historical_earthquake_datetimes_over4_max,
     infrastructure_hospitals_count,
     infrastructure_police_count,
     infrastructure_aerodrome_count
@@ -91,6 +101,8 @@ ON CONFLICT (unid) DO UPDATE SET
     historical_earthquake_magnitudes_over4_median = EXCLUDED.historical_earthquake_magnitudes_over4_median,
     historical_earthquake_magnitudes_over4_count  = EXCLUDED.historical_earthquake_magnitudes_over4_count,
     historical_earthquake_magnitudes_over4_max    = EXCLUDED.historical_earthquake_magnitudes_over4_max,
+    historical_earthquake_datetimes_over4_min     = EXCLUDED.historical_earthquake_datetimes_over4_min,
+    historical_earthquake_datetimes_over4_max     = EXCLUDED.historical_earthquake_datetimes_over4_max,
     infrastructure_hospitals_count                = EXCLUDED.infrastructure_hospitals_count,
     infrastructure_police_count                   = EXCLUDED.infrastructure_police_count,
     infrastructure_aerodrome_count                = EXCLUDED.infrastructure_aerodrome_count;
@@ -98,7 +110,7 @@ ON CONFLICT (unid) DO UPDATE SET
 
 # WHERE statement: Filters to only events that occurred in the last 24 hours. date (type DATE) + time (type TIME) combines into a timestamp for comparison.
 # ORDER statement: Strongest earthquakes first. Events with no magnitude value are pushed to the end.
-TRUNCATE_TOP10_SQL        = f"SET lock_timeout = '5s'; TRUNCATE {TABLE_TOP10};"
+DELETE_TOP10_SQL = f"DELETE FROM {TABLE_TOP10};"
 INSERT_TOP10_SQL = f"""
 INSERT INTO {TABLE_TOP10} (
     unid, magnitude, coordinate_lat, coordinate_lon, coordinate_depth,
@@ -125,7 +137,7 @@ CREATE TABLE IF NOT EXISTS {TABLE_COUNTRIES} (
 );
 """
 
-TRUNCATE_TOP_HISTORICAL_SQL = f"SET lock_timeout = '5s'; TRUNCATE {TABLE_TOP_HISTORICAL};"
+DELETE_TOP_HISTORICAL_SQL = f"DELETE FROM {TABLE_TOP_HISTORICAL};"
 INSERT_TOP_HISTORICAL_SQL = f"""
 INSERT INTO {TABLE_TOP_HISTORICAL} (
     unid, magnitude, coordinate_lat, coordinate_lon, coordinate_depth,
@@ -134,7 +146,9 @@ INSERT INTO {TABLE_TOP_HISTORICAL} (
 )
 SELECT
     unid, magnitude, coordinate_lat, coordinate_lon, coordinate_depth,
-    date, time, population, location_country, location_state, location_settlement,
+    historical_earthquake_datetimes_over4_max::DATE,
+    historical_earthquake_datetimes_over4_max::TIME,
+    population, location_country, location_state, location_settlement,
     historical_earthquake_magnitudes_over4_max
 FROM {TABLE}
 WHERE historical_earthquake_magnitudes_over4_max IS NOT NULL
@@ -192,6 +206,8 @@ def upsert_event(conn, record: dict) -> None:
         record.get("historical_earthquake_magnitudes_over4_median"),
         record.get("historical_earthquake_magnitudes_over4_count"),
         record.get("historical_earthquake_magnitudes_over4_max"),
+        record.get("historical_earthquake_datetimes_over4_min"),
+        record.get("historical_earthquake_datetimes_over4_max"),
         record.get("infrastructure_hospitals_count"),
         record.get("infrastructure_police_count"),
         record.get("infrastructure_aerodrome_count"),
@@ -203,16 +219,14 @@ def upsert_event(conn, record: dict) -> None:
 
 def refresh_top10(conn) -> None:
     with conn.cursor() as cur:
-        cur.execute(TRUNCATE_TOP10_SQL)
-        conn.commit()
+        cur.execute(DELETE_TOP10_SQL)
         cur.execute(INSERT_TOP10_SQL)
     conn.commit()
 
 
 def refresh_top_historical(conn) -> None:
     with conn.cursor() as cur:
-        cur.execute(TRUNCATE_TOP_HISTORICAL_SQL)
-        conn.commit()
+        cur.execute(DELETE_TOP_HISTORICAL_SQL)
         cur.execute(INSERT_TOP_HISTORICAL_SQL)
     conn.commit()
 

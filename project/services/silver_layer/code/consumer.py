@@ -1,14 +1,5 @@
-"""
-consumer.py
-Kafka consumer for the silver layer.
-
-Per earthquake event: writes Parquet files to MinIO, then sends
-a Kafka message to the gold layer topic.
-  silver/earthquake_events/{unid}.parquet
-  silver/countries/{country}.parquet
-"""
-
-from s3_reader import make_s3_client, read_bronze_files
+from mongo_reader import make_mongo_db, read_bronze_event
+from s3_reader import make_s3_client
 from parquet_writer import write_earthquake_event, write_country_summary
 from kafka_client import get_kafka_consumer, get_kafka_producer, send_silver_event
 
@@ -16,17 +7,16 @@ from kafka_client import get_kafka_consumer, get_kafka_producer, send_silver_eve
 def run():
     consumer = get_kafka_consumer()
     producer = get_kafka_producer()
+    db       = make_mongo_db()
     s3       = make_s3_client()
 
     for message in consumer:
         try:
-            kafka_msg   = message.value
-            unid        = kafka_msg["filter"]["_id"]
-            received_at = kafka_msg["update"]["$setOnInsert"]["received_at"]
+            unid = message.value["filter"]["_id"]
 
-            bronze = read_bronze_files(s3, unid, received_at)
+            bronze = read_bronze_event(db, unid)
             if bronze is None:
-                print(f"Skipping {unid}: S3 files not found", flush=True)
+                print(f"Skipping {unid}: not found in MongoDB", flush=True)
                 continue
 
             write_earthquake_event(s3, unid, bronze)

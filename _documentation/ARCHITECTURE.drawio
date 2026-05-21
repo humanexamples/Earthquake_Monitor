@@ -1,160 +1,100 @@
 <mxfile host="Electron">
   <diagram name="Earthquake Monitor Architecture" id="arch">
-    <mxGraphModel dx="1664" dy="989" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="2339" math="0" shadow="0">
+    <mxGraphModel dx="4040" dy="2403" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="2339" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="cBtkco-iBVWxx4GrGVB--22" parent="1" style="rounded=1;arcSize=2;fillColor=#ffcc99;strokeColor=#36393d;fontStyle=1;fontSize=13;verticalAlign=top;align=left;spacingLeft=10;spacingTop=6;" value="Website" vertex="1">
-          <mxGeometry height="104" width="161" x="873" y="761" as="geometry" />
+          <mxGeometry height="104" width="161" x="1120" y="761" as="geometry" />
         </mxCell>
         <mxCell id="bg_bronze" parent="1" style="rounded=1;arcSize=2;fillColor=#fef9c3;strokeColor=#d97706;fontStyle=1;fontSize=13;verticalAlign=top;align=left;spacingLeft=10;spacingTop=6;" value="🥉  Bronze Layer" vertex="1">
-          <mxGeometry height="191" width="1037" x="20" y="122" as="geometry" />
+          <mxGeometry height="191" width="1037" x="267" y="122" as="geometry" />
         </mxCell>
         <mxCell id="bg_emsc_listener" parent="1" style="rounded=1;arcSize=5;fillColor=#fef08a;strokeColor=#ca8a04;fontStyle=0;fontSize=11;verticalAlign=top;align=left;spacingLeft=8;spacingTop=4;" value="Save raw data" vertex="1">
-          <mxGeometry height="126" width="987" x="35" y="158" as="geometry" />
+          <mxGeometry height="126" width="987" x="282" y="158" as="geometry" />
         </mxCell>
         <mxCell id="bg_silver" parent="1" style="rounded=1;arcSize=2;fillColor=#bac8d3;strokeColor=#23445d;fontStyle=1;fontSize=13;verticalAlign=top;align=left;spacingLeft=10;spacingTop=6;" value="🥈  Silver Layer" vertex="1">
-          <mxGeometry height="196" width="1035" x="20" y="438" as="geometry" />
+          <mxGeometry height="196" width="1035" x="267" y="438" as="geometry" />
         </mxCell>
         <mxCell id="bg_flink" parent="1" style="rounded=1;arcSize=5;fillColor=#e2e8f0;strokeColor=#475569;fontStyle=0;fontSize=11;verticalAlign=top;align=left;spacingLeft=8;spacingTop=4;" value="Validate raw data and save clean data " vertex="1">
-          <mxGeometry height="126" width="977" x="39" y="473" as="geometry" />
+          <mxGeometry height="126" width="977" x="286" y="473" as="geometry" />
         </mxCell>
         <mxCell id="bg_gold" parent="1" style="rounded=1;arcSize=2;fillColor=#fefce8;strokeColor=#d97706;fontStyle=1;fontSize=13;verticalAlign=top;align=left;spacingLeft=10;spacingTop=6;" value="🥇  Gold Layer" vertex="1">
-          <mxGeometry height="104" width="840.5" x="12.5" y="760" as="geometry" />
-        </mxCell>
-        <mxCell id="bg_impact" parent="1" style="rounded=1;arcSize=5;fillColor=#fef9c3;strokeColor=#ca8a04;fontStyle=0;fontSize=11;verticalAlign=top;align=left;spacingLeft=8;spacingTop=4;" value="5 · Impact Scoring  (impact_scoring.py)" vertex="1">
-          <mxGeometry height="365" width="265" x="34" y="1472" as="geometry" />
-        </mxCell>
-        <mxCell id="bg_regional" parent="1" style="rounded=1;arcSize=5;fillColor=#fef9c3;strokeColor=#ca8a04;fontStyle=0;fontSize=11;verticalAlign=top;align=left;spacingLeft=8;spacingTop=4;" value="6 · Regional Aggregation  (regional_aggregation.py)" vertex="1">
-          <mxGeometry height="365" width="265" x="346" y="1472" as="geometry" />
-        </mxCell>
-        <mxCell id="bg_deequ_gold" parent="1" style="rounded=1;arcSize=5;fillColor=#fef9c3;strokeColor=#ca8a04;fontStyle=0;fontSize=11;verticalAlign=top;align=left;spacingLeft=8;spacingTop=4;" value="7 · Deequ Gold Check  (deequ_gold_check.py)" vertex="1">
-          <mxGeometry height="365" width="233" x="659" y="1472" as="geometry" />
-        </mxCell>
-        <mxCell id="bg_dwh_loader" parent="1" style="rounded=1;arcSize=5;fillColor=#fef9c3;strokeColor=#ca8a04;fontStyle=0;fontSize=11;verticalAlign=top;align=left;spacingLeft=8;spacingTop=4;" value="8 · DWH Loader  (load_to_dwh.py)" vertex="1">
-          <mxGeometry height="365" width="274" x="915" y="1472" as="geometry" />
-        </mxCell>
-        <mxCell id="bg_streamlit" parent="1" style="rounded=1;arcSize=2;fillColor=#eff6ff;strokeColor=#2563eb;fontStyle=1;fontSize=13;verticalAlign=top;align=left;spacingLeft=10;spacingTop=6;" value="📊  Streamlit Dashboard  (localhost:8501)" vertex="1">
-          <mxGeometry height="185" width="1190" x="9" y="2109" as="geometry" />
+          <mxGeometry height="104" width="840.5" x="259.5" y="760" as="geometry" />
         </mxCell>
         <mxCell id="kafka" parent="1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=12;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;fontSize=11;" value="⚡ Apache Kafka" vertex="1">
-          <mxGeometry height="45" width="121" x="821" y="337" as="geometry" />
-        </mxCell>
-        <mxCell id="dwh" parent="1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=12;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;fontSize=11;" value="🐘 PostgreSQL DWH&#xa;gold.earthquake_events&#xa;gold.regional_stats  ·  gold.daily_summary&#xa;gold.quality_profiles  ·  monitoring.events" vertex="1">
-          <mxGeometry height="110" width="258" x="1231" y="2162" as="geometry" />
+          <mxGeometry height="45" width="121" x="1068" y="337" as="geometry" />
         </mxCell>
         <mxCell id="emsc_ws" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bfdbfe;strokeColor=#2563eb;fontSize=10;" value="🌐 EMSC WebSocket&#xa;(Real-time seismic feed)" vertex="1">
-          <mxGeometry height="58" width="185" x="101" y="54" as="geometry" />
+          <mxGeometry height="58" width="185" x="348" y="54" as="geometry" />
         </mxCell>
         <mxCell id="2" edge="1" parent="1" source="usgs_api" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="bc1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="usgs_api" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bfdbfe;strokeColor=#2563eb;fontSize=10;" value="🌐 Other APIs" vertex="1">
-          <mxGeometry height="58" width="185" x="346" y="52" as="geometry" />
+          <mxGeometry height="58" width="185" x="593" y="52" as="geometry" />
         </mxCell>
         <mxCell id="A1HlcmzY_8o5Y-vNGgJ3-15" edge="1" parent="1" source="b1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="bc1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="b1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=white;strokeColor=#ca8a04;fontSize=10;" value="&lt;b&gt;Catch Earthquake event&lt;/b&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;WebSocket Client&lt;/div&gt;" vertex="1">
-          <mxGeometry height="69" width="220" x="84" y="193" as="geometry" />
+          <mxGeometry height="69" width="220" x="331" y="193" as="geometry" />
         </mxCell>
         <mxCell id="b2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=white;strokeColor=#ca8a04;fontSize=10;" value="Inform Silver Layer" vertex="1">
-          <mxGeometry height="66" width="190" x="786" y="195" as="geometry" />
+          <mxGeometry height="66" width="190" x="1033" y="195" as="geometry" />
         </mxCell>
         <mxCell id="Y4bOWPoDcYH21I_JGZdL-13" edge="1" parent="1" source="s1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="s2">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="s1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=white;strokeColor=#475569;fontSize=10;" value="Kafka Consumer" vertex="1">
-          <mxGeometry height="48" width="103" x="160" y="515" as="geometry" />
+          <mxGeometry height="48" width="103" x="407" y="515" as="geometry" />
         </mxCell>
         <mxCell id="Y4bOWPoDcYH21I_JGZdL-15" edge="1" parent="1" source="s2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="s3_enrich">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="s2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=white;strokeColor=#475569;fontSize=10;" value="Read data from bronze layer" vertex="1">
-          <mxGeometry height="48" width="151" x="300" y="515" as="geometry" />
+          <mxGeometry height="48" width="151" x="547" y="515" as="geometry" />
         </mxCell>
         <mxCell id="Y4bOWPoDcYH21I_JGZdL-16" edge="1" parent="1" source="s3_enrich" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" target="s4">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="s3_enrich" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=white;strokeColor=#475569;fontSize=10;" value="Remove duplicates" vertex="1">
-          <mxGeometry height="48" width="115.5" x="490.5" y="515" as="geometry" />
+          <mxGeometry height="48" width="115.5" x="737.5" y="515" as="geometry" />
         </mxCell>
         <mxCell id="Y4bOWPoDcYH21I_JGZdL-19" edge="1" parent="1" source="s4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" target="12">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="723.5" y="792" as="targetPoint" />
+            <mxPoint x="970.5" y="792" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="Y4bOWPoDcYH21I_JGZdL-20" edge="1" parent="1" source="s4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="Y4bOWPoDcYH21I_JGZdL-18">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="s4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=white;strokeColor=#475569;fontSize=10;" value="Save data in Silver Layer Storage" vertex="1">
-          <mxGeometry height="48" width="165" x="641" y="515" as="geometry" />
+          <mxGeometry height="48" width="165" x="888" y="515" as="geometry" />
         </mxCell>
         <mxCell id="cBtkco-iBVWxx4GrGVB--16" edge="1" parent="1" source="g1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" target="g2">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="g1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=white;strokeColor=#ca8a04;fontSize=10;" value="Kafka consumer" vertex="1">
-          <mxGeometry height="49" width="103" x="142.5" y="786" as="geometry" />
+          <mxGeometry height="49" width="103" x="389.5" y="786" as="geometry" />
         </mxCell>
         <mxCell id="cBtkco-iBVWxx4GrGVB--17" edge="1" parent="1" source="g2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="g3">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="g2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=white;strokeColor=#ca8a04;fontSize=10;" value="Read data from silver layer" vertex="1">
-          <mxGeometry height="50" width="138.5" x="291" y="785" as="geometry" />
+          <mxGeometry height="50" width="138.5" x="538" y="785" as="geometry" />
         </mxCell>
         <mxCell id="cBtkco-iBVWxx4GrGVB--18" edge="1" parent="1" source="g3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" target="g4">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="g3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=white;strokeColor=#ca8a04;fontSize=10;" value="Calculate parameters:&amp;nbsp;&lt;div&gt;count, max, median&lt;/div&gt;" vertex="1">
-          <mxGeometry height="50" width="149" x="468" y="785" as="geometry" />
+          <mxGeometry height="50" width="149" x="715" y="785" as="geometry" />
         </mxCell>
         <mxCell id="cBtkco-iBVWxx4GrGVB--19" edge="1" parent="1" source="g4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" target="cBtkco-iBVWxx4GrGVB--14">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="g4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=white;strokeColor=#ca8a04;fontSize=10;" value="Save data&amp;nbsp; Gold layer storage" vertex="1">
-          <mxGeometry height="48" width="173" x="648" y="787" as="geometry" />
-        </mxCell>
-        <mxCell id="r1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=white;strokeColor=#ca8a04;fontSize=10;" value="Read Gold Impact Scores S3" vertex="1">
-          <mxGeometry height="44" width="235" x="361" y="1508" as="geometry" />
-        </mxCell>
-        <mxCell id="r2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=white;strokeColor=#ca8a04;fontSize=10;" value="Group by region:&#xa;event_count, avg/max magnitude&#xa;avg/max composite_score, tsunami_risk" vertex="1">
-          <mxGeometry height="62" width="235" x="361" y="1563" as="geometry" />
-        </mxCell>
-        <mxCell id="r3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=white;strokeColor=#ca8a04;fontSize=10;" value="Global daily summary:&#xa;total_events · max_magnitude_global&#xa;max_composite_score · regions_affected" vertex="1">
-          <mxGeometry height="58" width="235" x="361" y="1636" as="geometry" />
-        </mxCell>
-        <mxCell id="r4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=white;strokeColor=#ca8a04;fontSize=10;" value="Write to Gold S3:&#xa;gold/regional_stats/ · gold/daily_summary/" vertex="1">
-          <mxGeometry height="48" width="235" x="361" y="1756" as="geometry" />
-        </mxCell>
-        <mxCell id="dg1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=white;strokeColor=#ca8a04;fontSize=10;" value="Read Gold S3" vertex="1">
-          <mxGeometry height="44" width="203" x="674" y="1508" as="geometry" />
-        </mxCell>
-        <mxCell id="dg2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=white;strokeColor=#ca8a04;fontSize=10;" value="Quality checks on&#xa;scored events" vertex="1">
-          <mxGeometry height="52" width="203" x="674" y="1563" as="geometry" />
-        </mxCell>
-        <mxCell id="dg3" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=white;strokeColor=#ca8a04;fontSize=10;" value="Passed?" vertex="1">
-          <mxGeometry height="62" width="173" x="689" y="1638" as="geometry" />
-        </mxCell>
-        <mxCell id="dl1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=white;strokeColor=#ca8a04;fontSize=10;" value="Read Gold S3:&#xa;impact_scores / regional_stats / daily_summary" vertex="1">
-          <mxGeometry height="55" width="244" x="930" y="1508" as="geometry" />
-        </mxCell>
-        <mxCell id="dl2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=white;strokeColor=#ca8a04;fontSize=10;" value="Cast types &amp; write via JDBC → PostgreSQL:&#xa;gold.earthquake_events&#xa;gold.regional_stats / gold.daily_summary" vertex="1">
-          <mxGeometry height="62" width="247" x="927" y="1575" as="geometry" />
-        </mxCell>
-        <mxCell id="v1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=white;strokeColor=#2563eb;fontSize=10;" value="🗺️ World Map&#xa;gold.earthquake_events" vertex="1">
-          <mxGeometry height="52" width="210" x="24" y="2149" as="geometry" />
-        </mxCell>
-        <mxCell id="v2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=white;strokeColor=#2563eb;fontSize=10;" value="📋 Event Table&#xa;gold.earthquake_events" vertex="1">
-          <mxGeometry height="52" width="210" x="300" y="2115" as="geometry" />
-        </mxCell>
-        <mxCell id="v3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=white;strokeColor=#2563eb;fontSize=10;" value="📊 Regional Stats&#xa;gold.regional_stats&#xa;gold.daily_summary" vertex="1">
-          <mxGeometry height="52" width="210" x="455" y="2205" as="geometry" />
-        </mxCell>
-        <mxCell id="v4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=white;strokeColor=#2563eb;fontSize=10;" value="🔴 Monitoring Window&#xa;gold.earthquake_events&#xa;monitoring.events" vertex="1">
-          <mxGeometry height="52" width="210" x="783" y="2236" as="geometry" />
-        </mxCell>
-        <mxCell id="v5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=white;strokeColor=#2563eb;fontSize=10;" value="✅ Data Quality&#xa;gold.quality_profiles" vertex="1">
-          <mxGeometry height="52" width="210" x="941" y="2120" as="geometry" />
+          <mxGeometry height="48" width="173" x="895" y="787" as="geometry" />
         </mxCell>
         <mxCell id="e_ds1_ds2" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;html=1;" value="">
           <mxGeometry relative="1" as="geometry">
@@ -166,123 +106,63 @@
             <mxPoint x="292" y="799" as="sourcePoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="e_r1_r2" edge="1" parent="1" source="r1" style="edgeStyle=orthogonalEdgeStyle;html=1;" target="r2" value="">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="e_r2_r3" edge="1" parent="1" source="r2" style="edgeStyle=orthogonalEdgeStyle;html=1;" target="r3" value="">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="e_r3_r4" edge="1" parent="1" source="r3" style="edgeStyle=orthogonalEdgeStyle;html=1;" target="r4" value="">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="e_dg1_dg2" edge="1" parent="1" source="dg1" style="edgeStyle=orthogonalEdgeStyle;html=1;" target="dg2" value="">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="e_dg2_dg3" edge="1" parent="1" source="dg2" style="edgeStyle=orthogonalEdgeStyle;html=1;" target="dg3" value="">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="e_dl1_dl2" edge="1" parent="1" source="dl1" style="edgeStyle=orthogonalEdgeStyle;html=1;" target="dl2" value="">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
         <mxCell id="e_emsc_b1" edge="1" parent="1" source="emsc_ws" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;" target="b1" value="WebSocket stream">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="e_b2_kafka" edge="1" parent="1" source="b2" style="html=1;fontSize=9;fillColor=#e1d5e7;strokeColor=#9673a6;strokeWidth=3;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;edgeStyle=orthogonalEdgeStyle;" target="kafka" value="raw-seismic-events">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="-207" y="483" as="sourcePoint" />
-            <mxPoint x="923" y="390" as="targetPoint" />
+            <mxPoint x="40" y="483" as="sourcePoint" />
+            <mxPoint x="1170" y="390" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="e_kafka_s1" edge="1" parent="1" source="kafka" style="html=1;fontSize=9;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.75;entryY=0;entryDx=0;entryDy=0;strokeWidth=3;fillColor=#e1d5e7;strokeColor=#9673a6;edgeStyle=orthogonalEdgeStyle;" target="s1" value="raw-seismic-events">
           <mxGeometry relative="1" x="0.0015" as="geometry">
             <mxPoint as="offset" />
             <Array as="points">
-              <mxPoint x="882" y="400" />
-              <mxPoint x="237" y="400" />
+              <mxPoint x="1129" y="400" />
+              <mxPoint x="484" y="400" />
             </Array>
           </mxGeometry>
-        </mxCell>
-        <mxCell id="e_r4_s3" edge="1" parent="1" source="r4" style="html=1;fontSize=9;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;edgeStyle=orthogonalEdgeStyle;" target="13" value="gold/regional_stats/...">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="e_s3_dg1" edge="1" parent="1" source="13" style="html=1;fontSize=9;exitX=1;exitY=0;exitDx=0;exitDy=34.75;exitPerimeter=0;edgeStyle=orthogonalEdgeStyle;" target="dg1" value="Read Gold">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="642" y="1991" />
-              <mxPoint x="642" y="1530" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="e_dg3_fail" edge="1" parent="1" source="dg3" style="html=1;dashed=1;strokeColor=#cc0000;fontColor=#cc0000;fontSize=9;entryX=1;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;edgeStyle=orthogonalEdgeStyle;" target="13" value="FAIL → blocks load">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="e_dg3_pass" edge="1" parent="1" source="dg3" style="html=1;strokeColor=#228B22;fontColor=#228B22;strokeWidth=2;fontSize=9;entryX=0;entryY=0.5;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" target="dl1" value="PASS">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="e_dl2_dwh" edge="1" parent="1" source="dl2" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;" target="dwh" value="JDBC append">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="1327" y="1606" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="e_dwh_v1" edge="1" parent="1" source="dwh" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;" target="v1" value="SQL">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="e_dwh_v2" edge="1" parent="1" source="dwh" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;" target="v2" value="SQL">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="e_dwh_v3" edge="1" parent="1" source="dwh" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;" target="v3" value="SQL">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="e_dwh_v4" edge="1" parent="1" source="dwh" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;" target="v4" value="SQL">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="e_dwh_v5" edge="1" parent="1" source="dwh" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;" target="v5" value="SQL">
-          <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="A1HlcmzY_8o5Y-vNGgJ3-14" edge="1" parent="1" source="bc2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" target="7">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="417.42857142857156" y="553.2857142857144" as="targetPoint" />
+            <mxPoint x="664.4285714285716" y="553.2857142857144" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="A1HlcmzY_8o5Y-vNGgJ3-16" edge="1" parent="1" source="bc1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" target="bc2">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="bc1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=white;strokeColor=#ca8a04;fontSize=10;" value="&lt;div&gt;&lt;b&gt;Enrich the earchquake events with information&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;HTTP GET Request&lt;div&gt;Information about location, population, infrastructure, and historical earthquake events in that region&lt;/div&gt;" vertex="1">
-          <mxGeometry height="69" width="244" x="318" y="193" as="geometry" />
+          <mxGeometry height="69" width="244" x="565" y="193" as="geometry" />
         </mxCell>
         <mxCell id="Y4bOWPoDcYH21I_JGZdL-14" edge="1" parent="1" source="7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="s2">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="666" y="418" />
-              <mxPoint x="376" y="418" />
+              <mxPoint x="913" y="418" />
+              <mxPoint x="623" y="418" />
             </Array>
           </mxGeometry>
         </mxCell>
         <mxCell id="7" parent="1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=12;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;fontSize=11;" value="🪣 S3 / MinIO Storage" vertex="1">
-          <mxGeometry height="52" width="128" x="601.5" y="332" as="geometry" />
+          <mxGeometry height="52" width="128" x="848.5" y="332" as="geometry" />
         </mxCell>
         <mxCell id="12" parent="1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=12;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;fontSize=11;" value="🪣 S3 / MinIO Storage" vertex="1">
-          <mxGeometry height="52" width="140" x="524.5" y="655" as="geometry" />
-        </mxCell>
-        <mxCell id="13" parent="1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=12;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;fontSize=11;" value="🪣 S3 / MinIO Storage" vertex="1">
-          <mxGeometry height="115" width="119" x="478" y="1956" as="geometry" />
+          <mxGeometry height="52" width="140" x="771.5" y="655" as="geometry" />
         </mxCell>
         <mxCell id="A1HlcmzY_8o5Y-vNGgJ3-17" edge="1" parent="1" source="bc2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="b2">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="bc2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=white;strokeColor=#ca8a04;fontSize=10;" value="Save data in Bronze Layer Storage" vertex="1">
-          <mxGeometry height="69" width="179" x="576" y="193" as="geometry" />
+          <mxGeometry height="69" width="179" x="823" y="193" as="geometry" />
         </mxCell>
         <mxCell id="Y4bOWPoDcYH21I_JGZdL-18" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=white;strokeColor=#475569;fontSize=10;" value="Inform Gold Layer" vertex="1">
-          <mxGeometry height="48" width="165" x="832" y="515" as="geometry" />
+          <mxGeometry height="48" width="165" x="1079" y="515" as="geometry" />
         </mxCell>
         <mxCell id="cBtkco-iBVWxx4GrGVB--15" edge="1" parent="1" source="Y4bOWPoDcYH21I_JGZdL-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;strokeWidth=3;fillColor=#e1d5e7;strokeColor=#9673a6;" target="g1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="Y4bOWPoDcYH21I_JGZdL-21" parent="1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=12;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;fontSize=11;" value="⚡ Apache Kafka" vertex="1">
-          <mxGeometry height="50" width="121" x="704" y="657" as="geometry" />
+          <mxGeometry height="50" width="121" x="951" y="657" as="geometry" />
         </mxCell>
         <mxCell id="cBtkco-iBVWxx4GrGVB--13" edge="1" parent="1" source="Y4bOWPoDcYH21I_JGZdL-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;fillColor=#e1d5e7;strokeColor=#9673a6;strokeWidth=3;" target="Y4bOWPoDcYH21I_JGZdL-21">
           <mxGeometry relative="1" as="geometry" />
@@ -291,10 +171,10 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="cBtkco-iBVWxx4GrGVB--14" parent="1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=12;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=11;" value="PostgreSQL" vertex="1">
-          <mxGeometry height="52" width="140" x="665" y="902" as="geometry" />
+          <mxGeometry height="52" width="140" x="912" y="902" as="geometry" />
         </mxCell>
         <mxCell id="cBtkco-iBVWxx4GrGVB--20" parent="1" style="points=[];aspect=fixed;html=1;align=center;shadow=0;dashed=0;fillColor=#FF6A00;strokeColor=none;shape=mxgraph.alibaba_cloud.domain_and_website;" value="" vertex="1">
-          <mxGeometry height="41.4" width="51.3" x="957" y="790" as="geometry" />
+          <mxGeometry height="41.4" width="51.3" x="1204" y="790" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

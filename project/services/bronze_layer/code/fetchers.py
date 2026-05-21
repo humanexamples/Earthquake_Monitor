@@ -1,7 +1,3 @@
-"""
-fetchers.py
-External API calls for the enrichment pipeline.
-"""
 import http.client
 import json
 import math

@@ -7,4 +7,4 @@ COPY ./code/ .
 # is sent straight to the terminal without being buffered, 
 # which is useful for real-time logging and debugging.
 ENV PYTHONUNBUFFERED=1
-CMD ["python", "emsc_listener.py"]
+CMD ["python", "consumer.py"]
